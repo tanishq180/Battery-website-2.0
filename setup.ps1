@@ -5,6 +5,9 @@ Write-Host "========================================================" -Foregroun
 Write-Host " Setting up Import/Export Business Web Application... " -ForegroundColor Cyan
 Write-Host "========================================================" -ForegroundColor Cyan
 
+$ErrorActionPreference = "Stop"
+Set-Location -LiteralPath $PSScriptRoot
+
 # 1. Check Python
 Write-Host "`n[1/5] Checking Python installation..." -ForegroundColor Yellow
 if (Get-Command python -ErrorAction SilentlyContinue) {
@@ -46,7 +49,8 @@ if (-not (Test-Path ".env")) {
 
 # Verify database and seed admin
 Write-Host "  Initializing Database & Seeding default admin user..." -ForegroundColor Gray
-.\venv\Scripts\python scripts/seed_admin.py
+.\venv\Scripts\python -c "import app.main"
+if ($LASTEXITCODE -ne 0) { throw "Database setup failed." }
 
 Set-Location ..
 

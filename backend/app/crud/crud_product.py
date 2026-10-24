@@ -1,5 +1,5 @@
 from typing import List, Optional, Tuple
-from sqlalchemy import or_
+from sqlalchemy import or_, cast, String
 from sqlalchemy.orm import Session, joinedload, selectinload
 
 from app.models.category import Category
@@ -29,6 +29,7 @@ def get_products(
             or_(
                 Product.title.ilike(search_filter),
                 Product.description.ilike(search_filter),
+                cast(Product.use_cases, String).ilike(search_filter),
             )
         )
 

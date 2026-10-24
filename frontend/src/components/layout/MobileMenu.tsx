@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { X, Lock, PhoneCall, ShieldCheck } from "lucide-react";
+import { Brand } from "./Brand";
 import { Button } from "@/components/ui/Button";
 
 interface MobileMenuProps {
@@ -45,8 +46,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         <div>
           <div className="flex items-center justify-between pb-6 border-b border-slate-800">
             <div className="flex items-center space-x-2">
-              <ShieldCheck className="h-7 w-7 text-emerald-400" />
-              <span className="font-bold text-lg text-white">VoltEdge</span>
+              <Brand footer />
             </div>
             <button
               onClick={onClose}

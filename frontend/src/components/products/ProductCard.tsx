@@ -29,7 +29,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               // Use the bundled battery illustration if an image cannot be loaded
               (e.target as HTMLImageElement).onerror = null;
               (e.target as HTMLImageElement).src =
-                "/images/battery-auto.svg";
+                "/images/products/sunka_mr1232bs.jpg";
             }}
           />
         ) : (

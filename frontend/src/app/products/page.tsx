@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { BatteryCharging, Package, SearchX } from "lucide-react";
 import { batteryCategories } from "@/data/batteryCatalog";
 import { Category, Product } from "@/types/product";
@@ -9,6 +10,12 @@ import { ProductFilters } from "@/components/products/ProductFilters";
 import { ProductCard } from "@/components/products/ProductCard";
 
 export default function ProductCatalogPage() {
+  return <Suspense fallback={<div className="site-wrap py-16" role="status">Loading Sunka catalogue…</div>}><ProductCatalogContent /></Suspense>;
+}
+
+function ProductCatalogContent() {
+  const router = useRouter();
+  const params = useSearchParams();
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -18,8 +25,8 @@ export default function ProductCatalogPage() {
 
   const [demo, setDemo] = useState(false);
   useEffect(() => {
-    setSelectedCategory(new URLSearchParams(window.location.search).get("category") || "");
-  }, []);
+    setSelectedCategory(params.get("category") || "");
+  }, [params]);
 
   // Initial categories fetch
   useEffect(() => {
@@ -55,9 +62,15 @@ export default function ProductCatalogPage() {
     };
   }, [searchQuery, selectedCategory]);
 
+  const changeCategory = (slug: string) => {
+    setSelectedCategory(slug);
+    const next = new URLSearchParams(params.toString());
+    if (slug) next.set("category", slug); else next.delete("category");
+    router.replace(`/products${next.size ? `?${next.toString()}` : ""}`, { scroll: false });
+  };
   const handleResetFilters = () => {
     setSearchQuery("");
-    setSelectedCategory("");
+    changeCategory("");
   };
 
   return (
@@ -72,17 +85,17 @@ export default function ProductCatalogPage() {
           Find your power solution.
         </h1>
         <p className="text-slate-600 text-sm sm:text-base max-w-3xl leading-relaxed">
-          Explore automotive, inverter, solar, and industrial battery ranges. Filter by application and send your requirements for model selection and a quotation.
+          Explore Sunka sealed lead-acid batteries, lithium cells, UPS backup, and energy storage models. Filter by application and send your requirements for model selection and a quotation.
         </p>
       </div>
 
-      {demo && <div role="status" className="border border-lime-200 bg-lime-50 px-5 py-4 text-sm text-slate-700">You’re viewing illustrative battery ranges while the live catalog is unavailable. Specifications, availability, and pricing are confirmed by quotation. Enquiry submission requires the backend service.</div>}
+      {demo && <div role="status" className="border border-lime-200 bg-lime-50 px-5 py-4 text-sm text-slate-700">You’re viewing the saved Sunka catalogue while the live service is unavailable. For assistance, contact MERI Industries on +91 7538844410 or merihindustries@gmail.com.</div>}
       {/* Filter & Search Bar */}
       <ProductFilters
         categories={categories}
         selectedCategory={selectedCategory}
         searchQuery={searchQuery}
-        onCategoryChange={(slug) => setSelectedCategory(slug)}
+        onCategoryChange={changeCategory}
         onSearchChange={(query) => setSearchQuery(query)}
         onClear={handleResetFilters}
       />

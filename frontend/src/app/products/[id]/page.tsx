@@ -107,7 +107,7 @@ export default function ProductDetailPage() {
                   onError={(e) => {
                     (e.target as HTMLImageElement).onerror = null;
               (e.target as HTMLImageElement).src =
-                      "/images/battery-auto.svg";
+                      "/images/products/sunka_mr1232bs.jpg";
                   }}
                 />
               ) : (

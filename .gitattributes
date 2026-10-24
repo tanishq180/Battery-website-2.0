@@ -1,0 +1,2 @@
+# Preserve original catalog PDFs byte-for-byte, including their cross-reference offsets.
+*.pdf binary

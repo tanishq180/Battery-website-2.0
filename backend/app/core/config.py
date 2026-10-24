@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "VoltEdge Batteries API"
+    PROJECT_NAME: str = "Sunka Batteries API"
     VERSION: str = "0.1.0"
     DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/import_export_db"
 
@@ -14,10 +14,10 @@ class Settings(BaseSettings):
     # Email Service Configuration (Resend or SendGrid)
     EMAIL_API_KEY: str = ""
     SENDER_EMAIL: str = "quotes@yourimportexport.com"
-    ADMIN_NOTIFICATION_EMAIL: str = "sales@yourimportexport.com"
+    ADMIN_NOTIFICATION_EMAIL: str = "merihindustries@gmail.com"
 
     # WhatsApp Integration Configuration
-    WHATSAPP_BUSINESS_NUMBER: str = ""
+    WHATSAPP_BUSINESS_NUMBER: str = "917538844410"
 
     model_config = SettingsConfigDict(
         env_file=".env",

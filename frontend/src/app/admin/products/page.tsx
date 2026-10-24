@@ -29,7 +29,7 @@ export default function AdminProductsPage() {
   const loadProducts = async () => {
     setLoading(true);
     const data = await fetchProducts(searchQuery, "", 1, 100);
-    setProducts(data.items);
+    setProducts(data.is_demo ? [] : data.items);
     setLoading(false);
   };
 

@@ -54,7 +54,7 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({
   };
 
   // Generate WhatsApp pre-filled chat link
-  const waBusinessNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
+  const waBusinessNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "917538844410").replace(/[^0-9]/g, "");
   const waMessage = `Hi, I would like to inquire about ${product.title}. My target order volume is ${quantity} units.`;
   const whatsappUrl = `https://wa.me/${waBusinessNumber}?text=${encodeURIComponent(waMessage)}`;
 

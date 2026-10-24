@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
 
 export async function loginAdmin(email: string, pass: string) {
   const res = await fetch(`${API_BASE_URL}/api/v1/admin/login`, {
@@ -88,7 +88,8 @@ export async function deleteAdminProduct(token: string, id: number | string) {
 
 export async function fetchAdminEnquiries(token: string, status?: string) {
   const params = new URLSearchParams();
-  if (status) params.append("status", status);
+  params.set("status", status || "");
+  params.set("size", "100");
 
   const url = `${API_BASE_URL}/api/v1/admin/enquiries${params.toString() ? `?${params.toString()}` : ""}`;
   const res = await fetch(url, {

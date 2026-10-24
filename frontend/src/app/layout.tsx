@@ -5,9 +5,10 @@ import { Footer } from "@/components/layout/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "VoltEdge Batteries | Power for Every Possibility",
+  icons: { icon: "/favicon.ico", apple: "/apple-touch-icon.png" },
+  title: "Sunka Batteries | Power for Every Possibility",
   description:
-    "Explore automotive, inverter, solar, and industrial battery solutions. Find the right power for your vehicle, home, and business.",
+    "Sunka batteries by MERI Industries. Explore sealed lead-acid batteries, lithium cells, UPS backup and industrial energy storage.",
 };
 
 export default function RootLayout({

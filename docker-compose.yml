@@ -37,7 +37,7 @@ services:
       EMAIL_API_KEY: ${EMAIL_API_KEY:-}
       SENDER_EMAIL: ${SENDER_EMAIL:-quotes@yourimportexport.com}
       ADMIN_NOTIFICATION_EMAIL: ${ADMIN_NOTIFICATION_EMAIL:-sales@yourimportexport.com}
-      WHATSAPP_BUSINESS_NUMBER: ${WHATSAPP_BUSINESS_NUMBER:-15550192834}
+      WHATSAPP_BUSINESS_NUMBER: ${WHATSAPP_BUSINESS_NUMBER:-917538844410}
     ports:
       - "8000:8000"
     depends_on:
@@ -58,7 +58,7 @@ services:
     container_name: import_export_frontend
     restart: unless-stopped
     environment:
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+      BACKEND_URL: http://backend:8000
     ports:
       - "3000:3000"
     depends_on:

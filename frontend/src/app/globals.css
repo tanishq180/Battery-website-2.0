@@ -113,3 +113,14 @@
  .energy-footer { padding-top: 45px; } .page-intro { padding: 45px 0; }
 }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } *, *:before, *:after { transition: none !important; animation: none !important; } }
+
+/* The supplied MERI Industries logo is displayed intact alongside the Sunka brand. */
+.meri-logo { width: 64px; height: 64px; object-fit: contain; background: #fff; border-radius: 4px; }
+.hero-battery { width: 76%; max-height: 490px; object-fit: contain; transform: none; box-shadow: 0 22px 60px #0005; }
+.art-callout { bottom: 30px; }
+.art-bottom-label { display: none; }
+.range-art { height: 220px; margin: 20px -5px; }
+.range-art img { background: #fff; }
+.brand { font-size: 27px; letter-spacing: -.7px; }
+.brand small { letter-spacing: 1.3px; font-size: 8px; }
+@media(max-width:640px) { .meri-logo { width: 52px; height: 52px; } .hero-art { height: 490px; } .hero-battery { width: 68%; max-height: 410px; } .art-callout { bottom: 5px; } .range-art { height: 170px; } .brand { font-size: 24px; } .brand small { font-size: 7px; } }

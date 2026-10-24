@@ -1,4 +1,5 @@
 @echo off
+cd /d "%~dp0"
 echo ========================================================
 echo  Setting up Import/Export Business Web Application...
 echo ========================================================
@@ -21,7 +22,8 @@ if not exist .env (
 )
 
 echo Initializing database and admin user...
-python scripts\seed_admin.py
+python -c "import app.main"
+if errorlevel 1 exit /b 1
 cd ..
 
 echo.

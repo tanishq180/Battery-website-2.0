@@ -30,25 +30,8 @@ try:
         )
         db.add(new_admin)
 
-    # Seed illustrative battery ranges only when the catalog is empty.
-    # Existing catalog records and prices are never overwritten.
-    if db.query(Category).count() == 0 and db.query(Product).count() == 0:
-        import json
-        from pathlib import Path
-        ranges = json.loads(Path(__file__).with_name("battery_catalog.json").read_text(encoding="utf-8"))
-        categories = {}
-        for item in ranges:
-            slug = item["category"]["slug"]
-            if slug not in categories:
-                category = Category(name=item["category"]["name"], slug=slug)
-                db.add(category)
-                db.flush()
-                categories[slug] = category
-            db.add(Product(
-                title=item["title"], description=item["description"],
-                use_cases=item["use_cases"], image_url=item["image_url"],
-                category_id=categories[slug].id,
-            ))
+    from app.catalog_seed import seed_sunka_catalog
+    seed_sunka_catalog(db)
 
     db.commit()
 except Exception as e:
@@ -60,7 +43,7 @@ finally:
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="VoltEdge battery catalog and enquiry API",
+    description="Sunka battery catalog and enquiry API",
 )
 
 # Enable CORS for browser access

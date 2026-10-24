@@ -1,7 +1,7 @@
 import { batteryCategories, batteryRanges } from "@/data/batteryCatalog";
 import { Category, Product, ProductListResponse, EnquiryCreate, EnquiryResponse } from "@/types/product";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
 
 export async function fetchCategories(): Promise<Category[]> {
   try {

@@ -1,19 +1,21 @@
-# VoltEdge Batteries — Battery Industry Website
+# Sunka Batteries | MERI Industries
 
 A full-stack battery catalog, business enquiry, and administration website built with **FastAPI**, **PostgreSQL**, **SQLAlchemy ORM**, **Alembic**, **Next.js 14 (App Router)**, **Tailwind CSS**, **Nginx**, and **Docker**.
 
 ---
 
 
-## Battery website update
+## Sunka website and original assets
 
-The public website uses the working brand **VoltEdge Batteries**, with automotive, inverter/UPS, solar storage, and industrial battery ranges. It includes bundled SVG product concepts, responsive navigation, category links, catalog search, battery detail pages, and application-specific quote requests.
+The brand is **Sunka Batteries**, supplied by **MERI Industries**. The original Meri Industries logo, 16 catalog models with supplied specifications and photos, favicons, and the Sunka PDF catalogue have been restored from the earlier website folder.
 
-- Battery ranges and artwork are illustrative demo content, not verified stock or technical specifications. Confirm real company branding, models, prices, warranty terms, and contact details before launch.
-- A fresh backend database seeds six battery ranges across four categories. Existing inventory is preserved. Manage existing records through the staff portal.
-- If the API is unavailable, the public catalog shows labelled illustrative ranges. Search, category filters, and detail pages still work; enquiry submission needs the API. Demo selections are sent as general enquiries with the range name in the message, never as database product IDs.
-- Configure a real `WHATSAPP_BUSINESS_NUMBER` in `backend/.env` and `NEXT_PUBLIC_WHATSAPP_NUMBER` in `frontend/.env.local` to enable WhatsApp links. No placeholder business number is shown.
-
+- Phone / WhatsApp: +91 7538844410. Email: merihindustries@gmail.com. Hours: Mon–Sat, 9 AM–7 PM IST.
+- Public pages: `/`, `/products`, `/products/:id`, `/about`, `/contact`. Original `/catalog`, `/contact-us`, and `/download/catalog-pdf` links redirect to their current destinations.
+- The browser uses the same-origin `/api` proxy for both public and staff actions. `BACKEND_URL` points Next.js to FastAPI (local default `http://127.0.0.1:8000`, Docker `http://backend:8000`). Leave `NEXT_PUBLIC_API_URL` empty unless you explicitly need an external API.
+- Startup imports the original catalog once into both new and existing databases. Existing inventory and enquiries are preserved; later staff edits to imported models are respected.
+- If the backend is unavailable, browsing uses a saved catalogue. Submissions show an error, never a false success. Phone, email, WhatsApp, and the PDF remain available.
+- Quote requests are saved to the database and visible in the staff enquiry page. Email delivery requires a configured `EMAIL_API_KEY` and a verified sender in `SENDER_EMAIL`; without a key, email delivery is simulated in the backend log.
+- Run `setup.bat` once, then `start.bat` to start both services. Both the backend and frontend must be running for enquiry submission.
 
 ## 🏛️ System Architecture
 
