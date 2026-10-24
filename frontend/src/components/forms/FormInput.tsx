@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { cn } from "@/lib/utils";
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -8,13 +8,18 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
   ({ label, error, className, required, ...props }, ref) => {
+    const generatedId = useId();
+    const inputId = props.id || generatedId;
     return (
       <div className="space-y-1.5">
-        <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider block">
+        <label htmlFor={inputId} className="text-xs font-semibold text-slate-700 uppercase tracking-wider block">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
         <input
           ref={ref}
+          id={inputId}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? `${inputId}-error` : undefined}
           required={required}
           className={cn(
             "w-full px-4 py-3 bg-slate-50 border rounded-xl text-sm text-slate-900 focus:outline-none focus:ring-2 focus:bg-white transition",
@@ -25,7 +30,7 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
           )}
           {...props}
         />
-        {error && <p className="text-xs text-red-600 font-medium">{error}</p>}
+        {error && <p id={`${inputId}-error`} className="text-xs text-red-600 font-medium">{error}</p>}
       </div>
     );
   }

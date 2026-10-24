@@ -1,0 +1,136 @@
+import { Category, Product } from "@/types/product";
+
+export const batteryCategories: Category[] = [
+  {
+    "id": -1,
+    "name": "Automotive",
+    "slug": "automotive"
+  },
+  {
+    "id": -2,
+    "name": "Inverter & UPS",
+    "slug": "inverter-ups"
+  },
+  {
+    "id": -3,
+    "name": "Solar & storage",
+    "slug": "solar-storage"
+  },
+  {
+    "id": -4,
+    "name": "Industrial",
+    "slug": "industrial"
+  }
+];
+
+// Negative IDs identify illustrative ranges and are never sent as database IDs.
+export const batteryRanges: Product[] = [
+  {
+    "id": -1,
+    "title": "Automotive Starter Battery",
+    "description": "A starting-battery range for passenger cars and light commercial vehicles. Share your vehicle model, engine type, dimensions, and terminal layout to discuss a compatible replacement. Illustrative range only; final specifications, availability, pricing, and warranty are confirmed by quotation.",
+    "use_cases": [
+      "Passenger cars",
+      "Light commercial vehicles"
+    ],
+    "image_url": "/images/battery-auto.svg",
+    "category_id": -1,
+    "created_at": "2026-10-24T00:00:00Z",
+    "category": {
+      "id": -1,
+      "name": "Automotive",
+      "slug": "automotive"
+    },
+    "price_tiers": []
+  },
+  {
+    "id": -2,
+    "title": "Commercial Vehicle Battery",
+    "description": "A battery range for commercial vehicle starting requirements. Confirm vehicle specifications, electrical accessories, charging system, and duty cycle before selecting a model. Illustrative range only; final specifications, availability, pricing, and warranty are confirmed by quotation.",
+    "use_cases": [
+      "Commercial fleets",
+      "Goods transport"
+    ],
+    "image_url": "/images/battery-auto.svg",
+    "category_id": -1,
+    "created_at": "2026-10-24T00:00:00Z",
+    "category": {
+      "id": -1,
+      "name": "Automotive",
+      "slug": "automotive"
+    },
+    "price_tiers": []
+  },
+  {
+    "id": -3,
+    "title": "Home Inverter Battery",
+    "description": "A backup-battery range for household inverter systems. Share the inverter model, connected load, required backup time, and available installation space. Illustrative range only; final specifications, availability, pricing, and warranty are confirmed by quotation.",
+    "use_cases": [
+      "Home backup",
+      "Small offices"
+    ],
+    "image_url": "/images/battery-inverter.svg",
+    "category_id": -2,
+    "created_at": "2026-10-24T00:00:00Z",
+    "category": {
+      "id": -2,
+      "name": "Inverter & UPS",
+      "slug": "inverter-ups"
+    },
+    "price_tiers": []
+  },
+  {
+    "id": -4,
+    "title": "UPS Backup Battery",
+    "description": "A standby-battery range for compatible UPS systems. Confirm system voltage, string configuration, charging parameters, and installation requirements. Illustrative range only; final specifications, availability, pricing, and warranty are confirmed by quotation.",
+    "use_cases": [
+      "Office UPS",
+      "IT backup"
+    ],
+    "image_url": "/images/battery-inverter.svg",
+    "category_id": -2,
+    "created_at": "2026-10-24T00:00:00Z",
+    "category": {
+      "id": -2,
+      "name": "Inverter & UPS",
+      "slug": "inverter-ups"
+    },
+    "price_tiers": []
+  },
+  {
+    "id": -5,
+    "title": "Solar Storage Battery",
+    "description": "A storage-battery range for compatible solar systems. Discuss daily energy use, usable storage capacity, inverter compatibility, and installation conditions. Illustrative range only; final specifications, availability, pricing, and warranty are confirmed by quotation.",
+    "use_cases": [
+      "Rooftop solar",
+      "Off-grid energy"
+    ],
+    "image_url": "/images/battery-solar.svg",
+    "category_id": -3,
+    "created_at": "2026-10-24T00:00:00Z",
+    "category": {
+      "id": -3,
+      "name": "Solar & storage",
+      "slug": "solar-storage"
+    },
+    "price_tiers": []
+  },
+  {
+    "id": -6,
+    "title": "Industrial Battery System",
+    "description": "A battery range for stationary industrial backup applications. Share DC system voltage, power demand, runtime, operating conditions, and integration requirements. Illustrative range only; final specifications, availability, pricing, and warranty are confirmed by quotation.",
+    "use_cases": [
+      "Telecom backup",
+      "Industrial facilities"
+    ],
+    "image_url": "/images/battery-industrial.svg",
+    "category_id": -4,
+    "created_at": "2026-10-24T00:00:00Z",
+    "category": {
+      "id": -4,
+      "name": "Industrial",
+      "slug": "industrial"
+    },
+    "price_tiers": []
+  }
+];

@@ -5,9 +5,9 @@ import { Footer } from "@/components/layout/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "GlobalTrade Enterprise | International Import & Export Solutions",
+  title: "VoltEdge Batteries | Power for Every Possibility",
   description:
-    "Leading global import and export company providing wholesale B2B product distribution, containerized logistics, customs clearance, and quantity-based pricing.",
+    "Explore automotive, inverter, solar, and industrial battery solutions. Find the right power for your vehicle, home, and business.",
 };
 
 export default function RootLayout({
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+      <body className="text-slate-900 min-h-screen flex flex-col antialiased">
         <AuthProvider>
           <Navbar />
           <main className="flex-grow">{children}</main>

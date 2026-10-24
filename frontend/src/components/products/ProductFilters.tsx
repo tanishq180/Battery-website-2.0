@@ -32,7 +32,8 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search products by title or description (e.g. Battery, Inverter)..."
+          aria-label="Search batteries"
+          placeholder="Search batteries, applications, or technologies..."
           className="w-full pl-11 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
         />
         {searchQuery && (
@@ -55,6 +56,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
 
         <div className="flex flex-wrap gap-2">
           <button
+            aria-pressed={selectedCategory === ""}
             onClick={() => onCategoryChange("")}
             className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer ${
               selectedCategory === ""
@@ -70,6 +72,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             return (
               <button
                 key={cat.id}
+                aria-pressed={isSelected}
                 onClick={() => onCategoryChange(cat.slug)}
                 className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer ${
                   isSelected

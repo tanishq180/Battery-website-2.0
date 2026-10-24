@@ -54,7 +54,7 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({
   };
 
   // Generate WhatsApp pre-filled chat link
-  const waBusinessNumber = "15550192834";
+  const waBusinessNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
   const waMessage = `Hi, I would like to inquire about ${product.title}. My target order volume is ${quantity} units.`;
   const whatsappUrl = `https://wa.me/${waBusinessNumber}?text=${encodeURIComponent(waMessage)}`;
 
@@ -65,14 +65,14 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({
           <Calculator className="h-6 w-6" />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-white tracking-tight">Interactive Volume Calculator</h3>
-          <p className="text-xs text-slate-400">Calculate volume pricing breaks in real-time</p>
+          <h3 className="text-lg font-bold text-white tracking-tight">Battery order enquiry</h3>
+          <p className="text-xs text-slate-400">Select your quantity and request a quotation</p>
         </div>
       </div>
 
       {/* Quantity Input Selector */}
       <div className="space-y-3">
-        <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
+        <label htmlFor="battery-quantity" className="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
           Enter Order Quantity (Units)
         </label>
 
@@ -86,6 +86,7 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({
           </button>
 
           <input
+            id="battery-quantity"
             type="number"
             min="1"
             value={quantity}
@@ -104,7 +105,7 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({
       </div>
 
       {/* Dynamic Price Calculation Summary */}
-      <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
+      {sortedTiers.length > 0 ? <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
         <div className="flex items-center justify-between text-sm text-slate-400">
           <span>Effective Unit Price:</span>
           <span className="text-base font-bold text-emerald-400">
@@ -125,11 +126,11 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({
             ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </span>
         </div>
-      </div>
+      </div> : <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 text-sm text-slate-300 leading-7">Pricing is available by quotation. Share your quantity and application to confirm a suitable model, availability, and delivery terms.</div>}
 
       {/* Action Buttons */}
       <div className="space-y-3 pt-2">
-        <a
+        {waBusinessNumber && <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -137,7 +138,7 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({
         >
           <MessageSquare className="h-5 w-5" />
           <span>Direct Chat & Quote on WhatsApp</span>
-        </a>
+        </a>}
 
         {onOpenFormQuote && (
           <Button
@@ -146,7 +147,7 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({
             className="w-full bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700 hover:text-white"
             onClick={() => onOpenFormQuote(quantity)}
           >
-            <Send className="mr-2 h-4 w-4" /> Submit Official RFQ Form
+            <Send className="mr-2 h-4 w-4" /> Request a battery quote
           </Button>
         )}
       </div>

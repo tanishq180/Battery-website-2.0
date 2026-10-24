@@ -1,8 +1,19 @@
-# Import/Export Business Web Application
+# VoltEdge Batteries — Battery Industry Website
 
-A full-stack, enterprise-grade Import/Export Business Web Application built with **FastAPI**, **PostgreSQL**, **SQLAlchemy ORM**, **Alembic**, **Next.js 14 (App Router)**, **Tailwind CSS**, **Nginx**, and **Docker**.
+A full-stack battery catalog, business enquiry, and administration website built with **FastAPI**, **PostgreSQL**, **SQLAlchemy ORM**, **Alembic**, **Next.js 14 (App Router)**, **Tailwind CSS**, **Nginx**, and **Docker**.
 
 ---
+
+
+## Battery website update
+
+The public website uses the working brand **VoltEdge Batteries**, with automotive, inverter/UPS, solar storage, and industrial battery ranges. It includes bundled SVG product concepts, responsive navigation, category links, catalog search, battery detail pages, and application-specific quote requests.
+
+- Battery ranges and artwork are illustrative demo content, not verified stock or technical specifications. Confirm real company branding, models, prices, warranty terms, and contact details before launch.
+- A fresh backend database seeds six battery ranges across four categories. Existing inventory is preserved. Manage existing records through the staff portal.
+- If the API is unavailable, the public catalog shows labelled illustrative ranges. Search, category filters, and detail pages still work; enquiry submission needs the API. Demo selections are sent as general enquiries with the range name in the message, never as database product IDs.
+- Configure a real `WHATSAPP_BUSINESS_NUMBER` in `backend/.env` and `NEXT_PUBLIC_WHATSAPP_NUMBER` in `frontend/.env.local` to enable WhatsApp links. No placeholder business number is shown.
+
 
 ## 🏛️ System Architecture
 
@@ -147,4 +158,4 @@ Frontend web application will run at `http://localhost:3000`.
 ---
 
 ## 📄 License & Credits
-Developed for International Trade & Wholesale Import/Export Operations. All rights reserved.
+Built for battery product discovery, application guidance, and business enquiries.

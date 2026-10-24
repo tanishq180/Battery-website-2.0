@@ -1,3 +1,4 @@
+import { batteryCategories, batteryRanges } from "@/data/batteryCatalog";
 import { Category, Product, ProductListResponse, EnquiryCreate, EnquiryResponse } from "@/types/product";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -11,7 +12,7 @@ export async function fetchCategories(): Promise<Category[]> {
     return await res.json();
   } catch (error) {
     console.error("fetchCategories error:", error);
-    return [];
+    return batteryCategories;
   }
 }
 
@@ -34,11 +35,14 @@ export async function fetchProducts(
     return await res.json();
   } catch (error) {
     console.error("fetchProducts error:", error);
-    return { items: [], total: 0, page, size };
+    const query = search?.trim().toLowerCase() || "";
+    const filtered = batteryRanges.filter(p => (!categorySlug || p.category?.slug === categorySlug) && (!query || `${p.title} ${p.description} ${p.use_cases?.join(" ")}`.toLowerCase().includes(query)));
+    return { items: filtered.slice((page - 1) * size, page * size), total: filtered.length, page, size, is_demo: true };
   }
 }
 
 export async function fetchProductById(id: string | number): Promise<Product | null> {
+  if (Number(id) < 0) return batteryRanges.find(p => p.id === Number(id)) || null;
   try {
     const res = await fetch(`${API_BASE_URL}/api/v1/products/${id}`, { cache: "no-store" });
     if (!res.ok) {

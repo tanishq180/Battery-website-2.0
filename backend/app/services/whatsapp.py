@@ -6,7 +6,7 @@ from app.core.config import settings
 
 def generate_whatsapp_quote_link(
     product_title: str, target_quantity: Optional[int] = None
-) -> str:
+) -> Optional[str]:
     """Construct a pre-filled WhatsApp click-to-chat URL for quote inquiries."""
     if target_quantity and target_quantity > 0:
         message = f"Hi, I would like to inquire about {product_title}. My target order volume is {target_quantity} units."
@@ -15,4 +15,6 @@ def generate_whatsapp_quote_link(
 
     encoded_message = quote(message)
     phone_number = settings.WHATSAPP_BUSINESS_NUMBER.replace("+", "").replace("-", "").strip()
+    if not phone_number or phone_number == "15550192834":
+        return None
     return f"https://wa.me/{phone_number}?text={encoded_message}"

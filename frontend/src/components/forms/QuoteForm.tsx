@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Send, Check, MessageSquare, Loader2 } from "lucide-react";
+import { batteryRanges } from "@/data/batteryCatalog";
 import { Product, EnquiryFormData, EnquiryResponse } from "@/types/product";
 import { fetchProducts, submitEnquiry } from "@/services/api";
 import { FormInput } from "@/components/forms/FormInput";
@@ -51,11 +52,12 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
     async function loadCatalog() {
       setLoadingProducts(true);
       const data = await fetchProducts("", "", 1, 100);
-      setProducts(data.items);
+      setProducts(initialProductId && initialProductId < 0 && !data.items.some(p => p.id === initialProductId)
+        ? [...data.items, ...batteryRanges.filter(p => p.id === initialProductId)] : data.items);
       setLoadingProducts(false);
     }
     loadCatalog();
-  }, []);
+  }, [initialProductId]);
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
@@ -95,9 +97,9 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
         customer_name: customerName.trim(),
         customer_email: customerEmail.trim(),
         customer_phone: customerPhone.trim(),
-        product_id: productId ? Number(productId) : null,
+        product_id: productId && productId > 0 ? Number(productId) : null,
         target_quantity: Number(targetQuantity),
-        message: message.trim() || undefined,
+        message: [productId && productId < 0 ? `Battery range: ${products.find(p => p.id === productId)?.title || "Battery enquiry"}` : "", message.trim()].filter(Boolean).join("\n") || undefined,
       };
 
       const res = await submitEnquiry(payload);
@@ -130,7 +132,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
         <div className="space-y-2 max-w-md mx-auto">
           <h3 className="text-2xl font-extrabold text-emerald-950">Quote Request Submitted!</h3>
           <p className="text-sm text-emerald-800 leading-relaxed">
-            Thank you, <strong>{submitResult.customer_name}</strong>. A confirmation email has been dispatched to <strong>{submitResult.customer_email}</strong>. Our export team is preparing your custom volume quote.
+            Thank you, <strong>{submitResult.customer_name}</strong>. Your request has been saved with the email <strong>{submitResult.customer_email}</strong>. Our battery sales team will review your requirements.
           </p>
         </div>
 
@@ -181,7 +183,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
           label="Business Email Address"
           type="email"
           required
-          placeholder="jane@importer.com"
+          placeholder="you@company.com"
           value={customerEmail}
           onChange={(e) => setCustomerEmail(e.target.value)}
           error={errors.customerEmail}
@@ -194,22 +196,24 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
           label="Phone / WhatsApp Number"
           type="tel"
           required
-          placeholder="+1 (555) 019-2834"
+          placeholder="+91 98765 43210"
           value={customerPhone}
           onChange={(e) => setCustomerPhone(e.target.value)}
           error={errors.customerPhone}
         />
 
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider block">
-            Select Product (Optional)
+          <label htmlFor="battery-selection" className="text-xs font-semibold text-slate-700 uppercase tracking-wider block">
+            Select Battery (Optional)
           </label>
           <select
+            id="battery-selection"
+            disabled={loadingProducts}
             value={productId || ""}
             onChange={(e) => setProductId(e.target.value ? Number(e.target.value) : null)}
             className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
           >
-            <option value="">General Wholesale Inquiry</option>
+            <option value="">Help me choose a battery</option>
             {products.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.title}
@@ -235,14 +239,15 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
 
       {/* Message Textarea */}
       <div className="space-y-1.5">
-        <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider block">
-          Freight Specifications & Port Destination (Optional)
+        <label htmlFor="battery-message" className="text-xs font-semibold text-slate-700 uppercase tracking-wider block">
+          Application & Battery Requirements (Optional)
         </label>
         <textarea
+          id="battery-message"
           rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Specify destination sea/air port, shipping terms (FOB/CIF), required delivery date, or special packaging requests..."
+          placeholder="Tell us your vehicle or equipment model, voltage, capacity (Ah), load, backup duration, delivery location, and preferred date..."
           className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
         />
       </div>
@@ -260,7 +265,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
           </>
         ) : (
           <>
-            <Send className="mr-2 h-4 w-4" /> Submit Official RFQ Request
+            <Send className="mr-2 h-4 w-4" /> Send battery enquiry
           </>
         )}
       </Button>

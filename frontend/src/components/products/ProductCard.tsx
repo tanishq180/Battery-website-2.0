@@ -24,17 +24,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img
             src={product.image_url}
             alt={product.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-contain p-5 group-hover:scale-105 transition-transform duration-500"
             onError={(e) => {
-              // Fallback to placeholder if image load fails
+              // Use the bundled battery illustration if an image cannot be loaded
+              (e.target as HTMLImageElement).onerror = null;
               (e.target as HTMLImageElement).src =
-                "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80";
+                "/images/battery-auto.svg";
             }}
           />
         ) : (
           <div className="flex flex-col items-center justify-center text-slate-400 space-y-2">
             <Package className="h-12 w-12 text-slate-300" />
-            <span className="text-xs font-medium">Export Grade Item</span>
+            <span className="text-xs font-medium">Battery solution</span>
           </div>
         )}
 
@@ -88,7 +89,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           <Link href={`/products/${product.id}`}>
             <Button variant="primary" size="sm" className="group-hover:bg-emerald-700">
-              View Quote <ArrowRight className="ml-1 h-3.5 w-3.5" />
+              View battery <ArrowRight className="ml-1 h-3.5 w-3.5" />
             </Button>
           </Link>
         </div>

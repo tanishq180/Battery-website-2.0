@@ -69,7 +69,7 @@ export default function ProductDetailPage() {
         </div>
         <h2 className="text-2xl font-bold text-slate-900">Product Not Found</h2>
         <p className="text-slate-600 text-sm">
-          The requested export product could not be located or may have been updated.
+          The requested battery product could not be located or may have been updated.
         </p>
         <Link href="/products">
           <Button variant="primary">
@@ -103,16 +103,17 @@ export default function ProductDetailPage() {
                 <img
                   src={product.image_url}
                   alt={product.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain p-5"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80";
+                    (e.target as HTMLImageElement).onerror = null;
+              (e.target as HTMLImageElement).src =
+                      "/images/battery-auto.svg";
                   }}
                 />
               ) : (
                 <div className="flex flex-col items-center space-y-2 text-slate-400">
                   <Package className="h-16 w-16 text-slate-300" />
-                  <span className="text-xs font-medium">Export Grade Item</span>
+                  <span className="text-xs font-medium">Battery solution</span>
                 </div>
               )}
 
@@ -161,9 +162,9 @@ export default function ProductDetailPage() {
           <div className="bg-emerald-900 text-white p-6 rounded-2xl shadow-lg border border-emerald-800 flex items-center space-x-4">
             <ShieldCheck className="h-10 w-10 text-emerald-400 shrink-0" />
             <div className="text-xs leading-relaxed space-y-1">
-              <p className="font-bold text-sm text-white">Full Export Certification & Quality Guarantee</p>
+              <p className="font-bold text-sm text-white">Confirm your battery configuration</p>
               <p className="text-emerald-200">
-                All consignments include Certificate of Origin (COO), Commercial Packing List, and mandatory pre-shipment quality inspection reports.
+                Confirm model specifications, charging compatibility, installation requirements, warranty, and delivery terms with the team before ordering.
               </p>
             </div>
           </div>
@@ -191,7 +192,7 @@ export default function ProductDetailPage() {
               Submit Custom Quote Request
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
-              Fill out your volume requirements below. Our export sales team will review custom freight rates and send a formal quotation.
+              Fill out your volume requirements below. Our battery team will review your application, capacity, and supply requirements before preparing a quotation.
             </p>
           </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { X, Lock, PhoneCall, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -11,6 +11,25 @@ interface MobileMenuProps {
 }
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
+  const drawerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    drawerRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key !== "Tab") return;
+      const elements = drawerRef.current?.querySelectorAll<HTMLElement>("a, button");
+      if (!elements?.length) return;
+      const first = elements[0], last = elements[elements.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => { document.body.style.overflow = previousOverflow; document.removeEventListener("keydown", handleKey); previous?.focus(); };
+  }, [isOpen, onClose]);
   if (!isOpen) return null;
 
   return (
@@ -22,12 +41,12 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
       />
 
       {/* Drawer */}
-      <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-slate-900 text-white p-6 shadow-2xl flex flex-col justify-between z-10 border-l border-slate-800">
+      <div ref={drawerRef} role="dialog" aria-modal="true" aria-label="Navigation menu" className="fixed inset-y-0 right-0 w-full max-w-xs bg-slate-900 text-white p-6 shadow-2xl flex flex-col justify-between z-10 border-l border-slate-800">
         <div>
           <div className="flex items-center justify-between pb-6 border-b border-slate-800">
             <div className="flex items-center space-x-2">
               <ShieldCheck className="h-7 w-7 text-emerald-400" />
-              <span className="font-bold text-lg text-white">GlobalTrade</span>
+              <span className="font-bold text-lg text-white">VoltEdge</span>
             </div>
             <button
               onClick={onClose}
@@ -51,7 +70,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               onClick={onClose}
               className="text-base font-medium text-slate-200 hover:text-emerald-400 px-3 py-2 rounded-md hover:bg-slate-800 transition"
             >
-              Catalog
+              Batteries
             </Link>
             <Link
               href="/about"

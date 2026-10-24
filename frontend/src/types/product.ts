@@ -24,6 +24,7 @@ export interface Product {
 }
 
 export interface ProductListResponse {
+  is_demo?: boolean;
   items: Product[];
   total: number;
   page: number;

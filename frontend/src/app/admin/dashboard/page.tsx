@@ -97,7 +97,7 @@ export default function AdminDashboardPage() {
               </div>
               <div>
                 <p className="text-4xl font-extrabold text-white">{productCount}</p>
-                <p className="text-xs text-slate-400 mt-1">Export items with tier pricing</p>
+                <p className="text-xs text-slate-400 mt-1">Battery models with volume pricing</p>
               </div>
               <Link href="/admin/products" className="inline-flex items-center text-xs font-semibold text-emerald-400 hover:underline pt-2">
                 Manage Catalog <ArrowRight className="ml-1 h-3.5 w-3.5" />
@@ -153,7 +153,7 @@ export default function AdminDashboardPage() {
               className="p-6 bg-slate-950 hover:bg-slate-800/80 rounded-2xl border border-slate-800 transition flex items-center justify-between group"
             >
               <div className="space-y-1">
-                <h3 className="font-bold text-white group-hover:text-emerald-400 transition">Create Export Product</h3>
+                <h3 className="font-bold text-white group-hover:text-emerald-400 transition">Create Battery Product</h3>
                 <p className="text-xs text-slate-400">Add new product title, category, description, and custom price breaks.</p>
               </div>
               <Plus className="h-6 w-6 text-slate-400 group-hover:text-emerald-400 transition shrink-0 ml-4" />

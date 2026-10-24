@@ -30,42 +30,25 @@ try:
         )
         db.add(new_admin)
 
-    # Seed sample category & products if empty
-    cat_count = db.query(Category).count()
-    if cat_count == 0:
-        c1 = Category(name="Industrial Goods", slug="industrial-goods")
-        c2 = Category(name="Energy & Solar", slug="energy-solar")
-        c3 = Category(name="Agricultural Wholesale", slug="agricultural-wholesale")
-        db.add_all([c1, c2, c3])
-        db.commit()
-
-        p1 = Product(
-            title="Solar Inverter 10kW Commercial Grade",
-            description="High-efficiency 10kW pure sine wave solar inverter designed for commercial energy storage and industrial grid tie installations.",
-            use_cases=["Commercial Solar Plants", "Factory Backup Power", "Off-grid Facilities"],
-            image_url="https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=600&q=80",
-            category_id=c2.id,
-        )
-        p2 = Product(
-            title="Heavy Duty Industrial LiFePO4 Battery 48V",
-            description="Deep cycle 48V 200Ah Lithium Iron Phosphate battery module engineered for heavy manufacturing and backup power systems.",
-            use_cases=["Telecom Towers", "Heavy Manufacturing", "Grid Energy Storage"],
-            image_url="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&q=80",
-            category_id=c1.id,
-        )
-        db.add_all([p1, p2])
-        db.commit()
-
-        # Seed Price Tiers
-        pt1 = PriceTier(product_id=p1.id, min_quantity=1, max_quantity=49, unit_price=500.0)
-        pt2 = PriceTier(product_id=p1.id, min_quantity=50, max_quantity=199, unit_price=450.0)
-        pt3 = PriceTier(product_id=p1.id, min_quantity=200, max_quantity=None, unit_price=400.0)
-
-        pt4 = PriceTier(product_id=p2.id, min_quantity=1, max_quantity=24, unit_price=1200.0)
-        pt5 = PriceTier(product_id=p2.id, min_quantity=25, max_quantity=99, unit_price=1050.0)
-        pt6 = PriceTier(product_id=p2.id, min_quantity=100, max_quantity=None, unit_price=950.0)
-        db.add_all([pt1, pt2, pt3, pt4, pt5, pt6])
-        db.commit()
+    # Seed illustrative battery ranges only when the catalog is empty.
+    # Existing catalog records and prices are never overwritten.
+    if db.query(Category).count() == 0 and db.query(Product).count() == 0:
+        import json
+        from pathlib import Path
+        ranges = json.loads(Path(__file__).with_name("battery_catalog.json").read_text(encoding="utf-8"))
+        categories = {}
+        for item in ranges:
+            slug = item["category"]["slug"]
+            if slug not in categories:
+                category = Category(name=item["category"]["name"], slug=slug)
+                db.add(category)
+                db.flush()
+                categories[slug] = category
+            db.add(Product(
+                title=item["title"], description=item["description"],
+                use_cases=item["use_cases"], image_url=item["image_url"],
+                category_id=categories[slug].id,
+            ))
 
     db.commit()
 except Exception as e:
@@ -77,7 +60,7 @@ finally:
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="Import/Export Business Web Application Backend API",
+    description="VoltEdge battery catalog and enquiry API",
 )
 
 # Enable CORS for browser access

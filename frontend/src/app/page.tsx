@@ -1,75 +1,28 @@
 import Link from "next/link";
-import { ArrowRight, Globe, ShieldCheck, Truck, Package, MessageSquare } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { ArrowUpRight, ArrowRight, BatteryCharging, CarFront, Sun, Factory, Zap, Check, Recycle } from "lucide-react";
 
+const ranges = [
+  { number: "01", name: "Automotive", text: "Starting power for the road ahead.", icon: CarFront, slug: "automotive", type: "auto", spec: "Passenger cars · Commercial fleets" },
+  { number: "02", name: "Inverter & UPS", text: "Keep everyday life switched on.", icon: BatteryCharging, slug: "inverter-ups", type: "inverter", spec: "Homes · Offices · Critical backup" },
+  { number: "03", name: "Solar & storage", text: "Make more of the energy you generate.", icon: Sun, slug: "solar-storage", type: "solar", spec: "Rooftop solar · Off-grid systems" },
+  { number: "04", name: "Industrial", text: "Energy that works as hard as you do.", icon: Factory, slug: "industrial", type: "industrial", spec: "Telecom · Infrastructure · Facilities" },
+];
 export default function Home() {
-  return (
-    <div className="space-y-16 py-12">
-      {/* Hero Section Placeholder */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-slate-900 rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden shadow-2xl border border-slate-800">
-          <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative z-10 max-w-3xl space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full text-xs font-semibold">
-              <Globe className="h-4 w-4" />
-              <span>International Wholesale Import & Export Partner</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-              Empowering Global Supply Chains with Trusted Freight & Wholesale Sourcing
-            </h1>
-            <p className="text-lg text-slate-300 leading-relaxed">
-              We specialize in bulk trade distribution, certified port customs clearance, and tier-priced product sourcing for international B2B buyers and commercial enterprises.
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Link href="/products">
-                <Button variant="primary" size="lg" className="shadow-lg shadow-emerald-900/30">
-                  Browse Product Catalog <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link href="/about">
-                <Button variant="outline" size="lg" className="bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700 hover:text-white">
-                  Company Profile
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Highlights Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
-            <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl w-fit mb-5">
-              <Truck className="h-6 w-6" />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">Global Sea & Air Freight</h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Seamless containerized logistics, freight forwarding, and port clearance across 30+ major trade destinations worldwide.
-            </p>
-          </div>
-
-          <div className="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
-            <div className="p-3 bg-amber-50 text-amber-600 rounded-xl w-fit mb-5">
-              <Package className="h-6 w-6" />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">Volume Price Tiers</h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Transparent, quantity-based bulk pricing breaks designed for wholesale importers, distributors, and enterprise procurement.
-            </p>
-          </div>
-
-          <div className="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
-            <div className="p-3 bg-blue-50 text-blue-600 rounded-xl w-fit mb-5">
-              <ShieldCheck className="h-6 w-6" />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">Regulatory Compliance</h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Strict pre-shipment quality control, ISO trade certifications, and full documentation compliance for every export consignment.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+  return <>
+    <section className="energy-hero"><div className="site-wrap hero-grid">
+      <div className="hero-copy"><p className="eyebrow"><span className="status-dot" /> ENERGY FOR WHAT’S NEXT</p>
+        <h1>Big ambitions.<br />Uninterrupted<br /><span>power.</span></h1>
+        <p className="hero-description">From the first turn of the key to the last light of the day. Explore battery solutions for mobility, everyday backup, and a more connected world.</p>
+        <div className="flex flex-wrap items-center gap-5 mt-9"><Link className="lime-button" href="/products">Explore batteries <ArrowUpRight size={19} /></Link><Link className="hero-text-link" href="/contact">Find your power solution <ArrowRight size={17} /></Link></div>
+        <div className="hero-footnote"><span>01 / 04</span><div /><span>AUTOMOTIVE TO INDUSTRIAL</span></div>
+      </div>
+      <div className="hero-art"><span className="art-top-label">PURPOSE-BUILT ENERGY</span><div className="energy-orbit orbit-one" /><div className="energy-orbit orbit-two" /><img src="/images/battery-hero.svg" alt="VoltEdge battery concept with a graphite casing, lime top and metal terminals" width="680" height="620" className="hero-battery" /><div className="art-callout"><span className="status-dot" /><div><strong>Ready for your next move.</strong><span>Explore the right battery for your application.</span></div><Zap size={25} /></div><span className="art-bottom-label">VOLTEDGE / ENERGY IN MOTION</span></div>
+    </div></section>
+    <div className="application-strip"><div className="site-wrap"><span>POWERING YOUR WORLD</span>{ranges.map(({ name, icon: Icon }) => <span key={name}><Icon size={19} />{name}</span>)}</div></div>
+    <section className="site-wrap section-space" id="solutions"><div className="section-heading"><div><p className="eyebrow text-emerald-700">THE RIGHT ENERGY. EVERY APPLICATION.</p><h2>Different needs.<br />One powerful range.</h2></div><div><p>Find your fit across our battery solutions.<br className="hidden sm:block" /> Built around the way you live and work.</p><Link href="/products" className="inline-link">View the full range <ArrowUpRight size={18} /></Link></div></div>
+      <div className="range-grid">{ranges.map(({ number, name, text, slug, type, spec }) => <Link href={`/products?category=${slug}`} className="range-card" key={name}><div className="range-card-top"><span>{number}</span><ArrowUpRight size={21} /></div><div className={`range-art ${type}`}><img src={`/images/battery-${type}.svg`} alt={`${name} battery concept`} width="320" height="240" /></div><h3>{name}</h3><p>{text}</p><span className="range-spec">{spec}</span></Link>)}</div>
+    </section>
+    <section className="approach-section"><div className="site-wrap approach-grid"><div><p className="eyebrow text-emerald-700">MORE THAN A BATTERY</p><h2>The right power starts<br />with the right partner.</h2><p className="text-slate-600 leading-7 mt-6 max-w-md">A battery should fit your application. We help you think through capacity, compatibility, operating conditions, and supply requirements before you choose.</p><Link href="/about" className="inline-link mt-7">Get to know VoltEdge <ArrowUpRight size={18} /></Link></div><div className="approach-list">{[{ icon: Zap, title: "Application-first selection", text: "Start with your load, runtime, and charging system to narrow down the right battery." }, { icon: Check, title: "Clear specifications", text: "Discuss voltage, capacity, chemistry, and warranty terms before placing your order." }, { icon: Recycle, title: "A longer-term perspective", text: "Ask about care, maintenance, and appropriate end-of-life collection options." }].map(({ icon: Icon, title, text }, i) => <div key={title}><span className="approach-icon"><Icon size={23} /></span><div><span className="text-xs text-slate-400">0{i + 1}</span><h3>{title}</h3><p>{text}</p></div></div>)}</div></div></section>
+    <section className="site-wrap section-space"><div className="project-cta"><div><p className="eyebrow">LET’S TALK POWER</p><h2>Your next project.<br />Our next conversation.</h2><p>One replacement battery or a business supply requirement.<br />Tell us what you need to keep moving.</p></div><Link href="/contact" className="lime-button">Request a battery quote <ArrowUpRight size={20} /></Link></div></section>
+  </>;
 }

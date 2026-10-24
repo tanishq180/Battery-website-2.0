@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Globe, Package, SearchX } from "lucide-react";
+import { BatteryCharging, Package, SearchX } from "lucide-react";
+import { batteryCategories } from "@/data/batteryCatalog";
 import { Category, Product } from "@/types/product";
 import { fetchCategories, fetchProducts } from "@/services/api";
 import { ProductFilters } from "@/components/products/ProductFilters";
@@ -14,6 +15,11 @@ export default function ProductCatalogPage() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [total, setTotal] = useState<number>(0);
+
+  const [demo, setDemo] = useState(false);
+  useEffect(() => {
+    setSelectedCategory(new URLSearchParams(window.location.search).get("category") || "");
+  }, []);
 
   // Initial categories fetch
   useEffect(() => {
@@ -32,6 +38,8 @@ export default function ProductCatalogPage() {
       const res = await fetchProducts(searchQuery, selectedCategory, 1, 24);
       if (isMounted) {
         setProducts(res.items);
+        setDemo(Boolean(res.is_demo));
+        if (res.is_demo) setCategories(batteryCategories);
         setTotal(res.total);
         setLoading(false);
       }
@@ -57,17 +65,18 @@ export default function ProductCatalogPage() {
       {/* Header Banner */}
       <div className="space-y-4">
         <div className="inline-flex items-center space-x-2 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold border border-emerald-200">
-          <Globe className="h-3.5 w-3.5" />
-          <span>Verified Wholesale Product Catalog</span>
+          <BatteryCharging className="h-3.5 w-3.5" />
+          <span>BATTERY SOLUTIONS</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Global Wholesale Product Catalog
+          Find your power solution.
         </h1>
         <p className="text-slate-600 text-sm sm:text-base max-w-3xl leading-relaxed">
-          Browse our export-certified inventory. Filter items by industry category or search for specific commercial products to inspect tier-based bulk pricing breaks and custom shipping quotes.
+          Explore automotive, inverter, solar, and industrial battery ranges. Filter by application and send your requirements for model selection and a quotation.
         </p>
       </div>
 
+      {demo && <div role="status" className="border border-lime-200 bg-lime-50 px-5 py-4 text-sm text-slate-700">You’re viewing illustrative battery ranges while the live catalog is unavailable. Specifications, availability, and pricing are confirmed by quotation. Enquiry submission requires the backend service.</div>}
       {/* Filter & Search Bar */}
       <ProductFilters
         categories={categories}
