@@ -42,7 +42,27 @@ A full-stack, enterprise-grade Import/Export Business Web Application built with
 
 ## 🛠️ Quick Start Guide
 
-### Option 1: Docker Multi-Container Composition (Recommended for Production & Testing)
+### Option 1: 1-Click Automated Setup (Windows / PowerShell)
+
+1. **First-time Setup** (Installs all dependencies, prepares environment files, and seeds the database):
+   ```powershell
+   .\setup.ps1
+   # OR double-click setup.bat
+   ```
+
+2. **Start Both Services** (Launches Backend & Frontend concurrently):
+   ```powershell
+   .\start.ps1
+   # OR double-click start.bat
+   ```
+   - **Frontend Web App**: `http://localhost:3000`
+   - **Product Catalog**: `http://localhost:3000/products`
+   - **Admin Portal**: `http://localhost:3000/admin/login` (Login: `admin@company.com` / `AdminPassword123!`)
+   - **Backend OpenAPI Docs**: `http://127.0.0.1:8000/docs`
+
+---
+
+### Option 2: Docker Multi-Container Composition (Docker Desktop)
 
 1. **Clone & Configure Environment**:
    ```bash
@@ -61,7 +81,7 @@ A full-stack, enterprise-grade Import/Export Business Web Application built with
 
 ---
 
-### Option 2: Local Development Setup (Manual)
+### Option 3: Local Development Setup (Manual)
 
 #### 1. Backend Setup (FastAPI & SQLite / PostgreSQL):
 ```bash
