@@ -1,5 +1,18 @@
 # Sunka Batteries | MERI Industries
 
+## Latest static Sunka website
+
+The new six-page **HTML, CSS, vanilla JavaScript and Python** website is in [`sunka-static/`](sunka-static/). It includes the product catalogue, MR1232BS photograph and dimensions, the static 3D-style home-page image, applications, company information and downloadable wholesale enquiries.
+
+Run it without npm or third-party Python packages:
+
+```powershell
+cd sunka-static
+python manage.py serve
+```
+
+Open `http://127.0.0.1:4173`. See the [static website README](sunka-static/README.md) for build and editing instructions. The existing full-stack application below is preserved separately.
+
 A full-stack battery catalog, business enquiry, and administration website built with **FastAPI**, **PostgreSQL**, **SQLAlchemy ORM**, **Alembic**, **Next.js 14 (App Router)**, **Tailwind CSS**, **Nginx**, and **Docker**.
 
 ---
